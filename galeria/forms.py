@@ -1,3 +1,5 @@
+import hashlib
+
 from django import forms
 from .models import Usuario, Imagem
 
@@ -22,9 +24,9 @@ class UsuarioForm(BootStrapModelForm):
 class ImagemForm(BootStrapModelForm):
     class Meta:
         model = Imagem
-        fields = ['titulo', 'imagem']
+        fields = ['titulo', 'imagem_base64']
 
-    imagem = forms.ImageField(required=True, widget=forms.FileInput(attrs={
+    imagem_base64 = forms.ImageField(required=True, widget=forms.FileInput(attrs={
         'class': 'form-control',
         'accept': 'image/*',
     }))
@@ -46,7 +48,8 @@ class LoginForm(forms.Form):
         if email and password:
             try:
                 user = Usuario.objects.get(email=email)
-                if not user.check_password(password):
+                hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                if hashed_password != user.password:
                     raise forms.ValidationError('Senha incorreta')
             except Usuario.DoesNotExist:
                 raise forms.ValidationError('Email não encontrado')

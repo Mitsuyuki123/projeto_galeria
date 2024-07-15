@@ -12,22 +12,22 @@
 </div>
 
 <div class="container row mx-auto g-4">
-{% for imagem in imagens%}
-<div class="col-6 col-md-4 col-xxl-2">
-            <div>
-	            <div class="card">
-	                <a type="button" data-bs-toggle="modal" data-bs-target="#modal{{ imagem.id }}">
+	{% for imagem in imagens %}
+	<div class="col-6 col-md-4 col-xxl-2">
+		<div>
+			<div class="card text-center">
+				<a type="button" data-bs-toggle="modal" data-bs-target="#modal{{ imagem.id }}">
 					<img src="data:image/jpg;base64,{{ imagem.thumbnail }}" class="img-fluid"
 					     alt="{{ imagem.titulo }}">
-					</a>
-                    <div class="card-header bg-black text-bg-dark">
-                        <p class="text-center card-text">
-	                        {{ imagem.titulo }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+				</a>
+				<div class="card-header bg-black text-bg-dark">
+					<p class="text-center card-text">
+						{{ imagem.titulo }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="modal{{ imagem.id }}" tabindex="-1" role="dialog"
 	     aria-labelledby="modalLabel{{ imagem.id }}" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -40,7 +40,7 @@
 				</div>
 				<div class="modal-body">
 					<p>{{ imagem.titulo }}</p>
-					<img src="data:image/jpg;base64,{{ imagem.imagem }}" class="card-img-top"
+					<img src="data:image/jpg;base64,{{ imagem.imagem_base64 }}" class="card-img-top"
 					     alt="foto de {{ imagem.nome }}">
 				</div>
 				<div class="modal-footer">
@@ -49,6 +49,6 @@
 			</div>
 		</div>
 	</div>
-{% endfor %}
+	{% endfor %}
 </div>
 {% endblock %}
