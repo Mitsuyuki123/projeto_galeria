@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Login {% endblock %}
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		{{ field }}
+		{% if field.errors %}
+		<div class="alert alert-danger">
+			{{ field.errors }}
+		</div>
+		{% endif %}
+	</div>
+	{% endfor %}}
+	<button type="submit" class="btn btn-primary">Login</button>
+	<a href="{% url 'novo_usuario' %}" class="btn btn-secondary">Registrar</a>
+</form>
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+	{{ form.non_field_errors }}
+</div>
+{% endif %}
+{% endblock %}
